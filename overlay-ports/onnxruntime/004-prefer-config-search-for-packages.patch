@@ -1,0 +1,22 @@
+diff --git a/cmake/CMakeLists.txt b/cmake/CMakeLists.txt
+index acbde7f56..1b76336e2 100644
+--- a/cmake/CMakeLists.txt
++++ b/cmake/CMakeLists.txt
+@@ -732,7 +732,7 @@ list(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/external)
+ #2. if ONNX_CUSTOM_PROTOC_EXECUTABLE is not set, Compile everything(including protoc) from source code.
+ 
+ if (onnxruntime_PREFER_SYSTEM_LIB)
+-  find_package(Protobuf)
++  find_package(Protobuf CONFIG REQUIRED)
+ endif()
+ 
+ if (Protobuf_FOUND)
+@@ -849,7 +849,7 @@ set(JSON_Install OFF CACHE INTERNAL "")
+ add_subdirectory(external/json EXCLUDE_FROM_ALL)
+ 
+ if (onnxruntime_PREFER_SYSTEM_LIB)
+-  find_package(re2)
++  find_package(re2 CONFIG REQUIRED)
+ endif()
+ if (NOT TARGET re2::re2)
+   add_subdirectory(external/re2 EXCLUDE_FROM_ALL)

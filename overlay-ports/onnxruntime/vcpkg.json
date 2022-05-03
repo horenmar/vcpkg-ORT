@@ -1,0 +1,38 @@
+{
+  "name": "onnxruntime",
+  "version": "1.11.1",
+  "port-version": 0,
+  "description": "onnxruntime (CPU build)",
+  "homepage": "https://github.com/microsoft/onnxruntime",
+  "$dep-comment": "ORT is not well factored to use external dependencies, but it supports at least some of them. Until we need other dependencies to be provided centrally, we will take most of the deps through its own build, rather than rewriting its build systems.",
+  "$dep-comment-onnx": "ORT currently doesn't support externally provided onnx package, so we will take it from its own build.",
+  "dependencies": [
+    "abseil",
+    "nsync",
+    "protobuf",
+    "re2",
+    {
+      "name": "vcpkg-cmake",
+      "host": true
+    },
+    {
+      "name": "vcpkg-cmake-config",
+      "host": true
+    }
+  ],
+  "overrides": [
+    {
+      "name": "nsync",
+      "version": "1.24.0"
+    },
+    {
+      "name": "protobuf",
+      "version": "3.18.0"
+    },
+    {
+      "name": "re2",
+      "version-date": "2021-09-01",
+      "port-version": 1
+    }
+  ]
+}

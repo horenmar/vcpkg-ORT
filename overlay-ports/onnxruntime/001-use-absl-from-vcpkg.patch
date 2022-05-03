@@ -1,0 +1,34 @@
+diff --git a/cmake/CMakeLists.txt b/cmake/CMakeLists.txt
+index 603cc75fe..af3f67162 100644
+--- a/cmake/CMakeLists.txt
++++ b/cmake/CMakeLists.txt
+@@ -1192,6 +1192,8 @@ function(onnxruntime_set_source_file_properties target_name)
+   set_property(SOURCE ${objective_c_cc_srcs} APPEND PROPERTY COMPILE_OPTIONS "-fobjc-arc")
+ endfunction()
+ 
++find_package(absl CONFIG REQUIRED)
++
+ function(onnxruntime_configure_target target_name)
+   target_link_directories(${target_name} PRIVATE ${onnxruntime_LINK_DIRS})
+   onnxruntime_set_compile_flags(${target_name})
+@@ -1200,7 +1202,7 @@ function(onnxruntime_configure_target target_name)
+   #if(WIN32 AND onnxruntime_ENABLE_STATIC_ANALYSIS)
+   #  set_target_properties(${target_name} PROPERTIES VS_USER_PROPS ${PROJECT_SOURCE_DIR}/EnableVisualStudioCodeAnalysis.props)
+   #endif()
+-  target_include_directories(${target_name} PRIVATE ${CMAKE_CURRENT_BINARY_DIR} ${ONNXRUNTIME_ROOT} ${abseil_cpp_SOURCE_DIR})
++  target_include_directories(${target_name} PRIVATE ${CMAKE_CURRENT_BINARY_DIR} ${ONNXRUNTIME_ROOT})
+   if (onnxruntime_ENABLE_LTO)
+     set_target_properties(${target_name} PROPERTIES INTERPROCEDURAL_OPTIMIZATION_RELEASE TRUE)
+     set_target_properties(${target_name} PROPERTIES INTERPROCEDURAL_OPTIMIZATION_RELWITHDEBINFO TRUE)
+diff --git a/cmake/onnxruntime_common.cmake b/cmake/onnxruntime_common.cmake
+index 9590050df..e328e0502 100644
+--- a/cmake/onnxruntime_common.cmake
++++ b/cmake/onnxruntime_common.cmake
+@@ -108,7 +108,6 @@ if (onnxruntime_USE_MIMALLOC)
+     endif()
+ endif()
+ 
+-include(external/abseil-cpp.cmake)
+ 
+ onnxruntime_add_include_to_target(onnxruntime_common date_interface wil)
+ target_include_directories(onnxruntime_common
